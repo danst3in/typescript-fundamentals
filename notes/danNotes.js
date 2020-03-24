@@ -1,0 +1,5 @@
+/*
+Just a spot for Dan to take notes seperate from the Frontend Masters Page
+
+
+ */
