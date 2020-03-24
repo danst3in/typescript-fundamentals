@@ -3,22 +3,33 @@
 /**
  * (1) x is a string, b/c we’ve initialized it
  */
-// let x = "hello world";
+let x = "hello world";
 
 /**
  * (2) reassignment is fine
  */
-// x = "hello mars";
+x = "hello mars";
 
 /**
  * (3) but if we try to change type
  */
-// x = 42; // 🚨 ERROR
+x = 42; // 🚨 ERROR
 
 /**
  * (4) let's look at const. The type is literally 'hello world'
  */
-// const y = "hello world";
+const y = "hello world";
+// what happens when trying to reassign the value of 'y' by passing it into a function
+// function foo(arg: "hello mars"){
+//
+// }
+// foo(y) // throws error on 'y' - this is a literal type - you are enumerating a
+          // set of allowed values
+const yObj = {
+  foo: 'hello'
+};
+yObj.foo = 'bye'; // this is valid because we declared .foo as type = string and
+                  // not specifically type = 'hello'
 
 /**
  * This is called a 'string literal type'. y can never be reassigned since it's a const,
@@ -29,9 +40,9 @@
 /**
  * (5) sometimes we need to declare a variable w/o initializing it
  */
-// let z;
-// z = 41;
-// z = "abc"; // (6) oh no! This isn't good
+let z;
+z = 41;
+z = "abc"; // (6) oh no! This isn't good
 
 /**
  * If we look at the type of z, it's `any`. This is the most flexible type
@@ -42,9 +53,9 @@
  * (7) we could improve this situation by providing a type annotation
  * when we declare our variable
  */
-// let zz: number;
-// zz = 41;
-// zz = "abc"; // 🚨 ERROR Type '"abc"' is not assignable to type 'number'.
+let zz: number;
+zz = 41;
+zz = "abc"; // 🚨 ERROR Type '"abc"' is not assignable to type 'number'.
 
 //== SIMPLE ARRAYS ==//
 
