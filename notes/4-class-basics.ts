@@ -7,14 +7,14 @@ import { HasPhoneNumber, HasEmail } from "./1-basics";
  * -   They can "implement" interfaces
  */
 
-// export class Contact implements HasEmail {
-//   email: string;
-//   name: string;
-//   constructor(name: string, email: string) {
-//     this.email = email;
-//     this.name = name;
-//   }
-// }
+export class Contact implements HasEmail {
+  email: string;
+  name: string;
+  constructor(name: string, email: string) {
+    this.email = email;
+    this.name = name;
+  }
+}
 
 /**
  * (2) This looks a little verbose -- we have to specify the words "name" and "email" 3x.
@@ -29,23 +29,40 @@ import { HasPhoneNumber, HasEmail } from "./1-basics";
  * - private - only me
  */
 
-// class ParamPropContact implements HasEmail {
-//   constructor(public name: string, public email: string = "no email") {
-//     // nothing needed
-//   }
-// }
+class ParamPropContact implements HasEmail {
+  constructor(
+    public name: string,
+    public email: string = "no email"
+   ) {
+    // nothing needed
+  }
+}
+
+const x = new ParamPropContact('a', 'b');
+x.name;
+// x.email; if this is set to protected we can no longer access this and receive
+// an error. Also the class gives an error that we incorrectly implement the interface because
+// HasEmail expects email to be visible
 
 /**
  * (4) Class fields can have initializers (defaults)
  */
-// class OtherContact implements HasEmail, HasPhoneNumber {
-//   protected age: number = 0;
-//   // private password: string;
-//   constructor(public name: string, public email: string, public phone: number) {
-//     // () password must either be initialized like this, or have a default value
-//     // this.password = Math.round(Math.random() * 1e14).toString(32);
-//   }
-// }
+class OtherContact implements HasEmail, HasPhoneNumber {
+  protected age: number = 0;
+  // private password: string;
+  constructor(
+    public name: string,
+    public email: string,
+    public phone: number
+  ) {
+    // () age must either be initialized like this above the constructor, or
+    // have a default value for example:
+    this.age = 35; // if this is not commented out it will supercede what was used as default value ( 0 in this case)
+    // original comment below seems out of date
+    // () password must either be initialized like this, or have a default value
+    // this.password = Math.round(Math.random() * 1e14).toString(32);
+  }
+}
 
 /**
  * (5) TypeScript even allows for abstract classes, which have a partial implementation
