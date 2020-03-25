@@ -49,7 +49,10 @@ x.name;
  */
 class OtherContact implements HasEmail, HasPhoneNumber {
   protected age: number = 0;
-  // private password: string;
+  private password: string;
+  // in the case where it is not definite that password will exist from the
+  // beginning of creating the class an alternate technique of lazy instantiation:
+  private passwordLazy: string | undefined;
   constructor(
     public name: string,
     public email: string,
@@ -58,9 +61,15 @@ class OtherContact implements HasEmail, HasPhoneNumber {
     // () age must either be initialized like this above the constructor, or
     // have a default value for example:
     this.age = 35; // if this is not commented out it will supercede what was used as default value ( 0 in this case)
-    // original comment below seems out of date
+    // original comment below for lazy initialization video
     // () password must either be initialized like this, or have a default value
     // this.password = Math.round(Math.random() * 1e14).toString(32);
+  }
+  get passwordLazyGet(): string {
+    if (!this.passwordLazy) {
+      this.passwordLazy = Math.round(Math.random() * 1e14).toString(32);
+    }
+    return this.passwordLazy;
   }
 }
 
