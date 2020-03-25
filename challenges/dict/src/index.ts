@@ -6,6 +6,7 @@
 // // Array.prototype.reduce, but for Dict
 // export function reduceDict() {}
 
+// create generic dictionary type
 export type Dict<T> = {
   [key: string]: T | undefined;
 };
@@ -24,6 +25,26 @@ export function mapDict<T, S>(
   });
   return out;
 }
+ // example function call for map
+mapDict({
+  a: 'a',
+  b: 'b'
+}, (str) => [str]) // alternative to [str]  would return wrapped vals >> ({ val: str}))
+
 
 // Array.prototype.reduce, but for Dict
-export function reduceDict() {}
+export function reduceDict<T, S>(
+  dict: Dict<T>,
+  // create reducer callback - takes (acc, curr, idx) as (val, item, idx)
+  reducer: (val: S, item: T, idx: number) => S,
+  initialVal: S
+) {
+  let val: S = initialVal;
+  Object.keys(dict).forEach((dKey, idx) => {
+    const thisItem = dict[dKey];
+    if (typeof thisItem !== 'undefined') {
+      val = reducer(val,thisItem, idx)
+    }
+  });
+  return val;
+}
